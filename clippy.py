@@ -62,7 +62,7 @@ class ClippyAdagrad(tf.train.Optimizer):
 
         max_norm = absolute_factor
         for ref, relative_factor in zip(references, relative_factors):
-            max_norm += relative_factor * tf.abs(ref)
+            max_norm += relative_factor * tf.reduce_max(tf.abs(ref))
 
         scale = tf.minimum(1.0, max_norm / tf.reduce_max(tf.abs(tensor)))
         shrinked_tensor = tensor * scale
